@@ -29,6 +29,7 @@ if(-not(Get-MyModule "PsGet")) {
 		Install-Module posh-git
 	} else {
 		# Load posh-git example profile
-		. 'C:\Users\Administrator\Documents\WindowsPowerShell\Modules\posh-git\profile.example.ps1'
+		. "$Env:USERPROFILE\Documents\WindowsPowerShell\Modules\posh-git\profile.example.ps1"
 	}
 }
+
