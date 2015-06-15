@@ -33,3 +33,7 @@ if(-not(Get-MyModule "PsGet")) {
 	}
 }
 
+#Powershell Aliases
+if(Test-Path "$Home\Documents\WindowsPowerShell\aliases.ps1") {
+	. "$Home\Documents\WindowsPowerShell\aliases.ps1"
+}
