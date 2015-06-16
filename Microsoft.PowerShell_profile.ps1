@@ -7,7 +7,7 @@ Function Get-MyModule
 	{
 		#if module available then import 
 		if(Get-Module -ListAvailable | 
-			Where-Object { $_.name -eq $name }){ 
+			Where-Object { $_.name -eq $name }) { 
 				Import-Module -Name $name 
 				$true
 		} else {
@@ -25,11 +25,20 @@ if(-not(Get-MyModule "PsGet")) {
 	(new-object Net.WebClient).DownloadString("http://psget.net/GetPsGet.ps1") | iex
 } else {
 	#source: https://github.com/dahlbyk/posh-git
-	if(-not(get-MyModule "posh-git")){
+	if(-not(Get-MyModule "posh-git")) {
 		Install-Module posh-git
 	} else {
 		# Load posh-git example profile
 		. "$Env:USERPROFILE\Documents\WindowsPowerShell\Modules\posh-git\profile.example.ps1"
+	}
+
+	#Source: https://github.com/lzybkr/PSReadLine
+	if(-not(Get-MyModule "PSReadline")) {
+		Install-Module PSReadline
+	} else {
+		if ($host.Name -eq 'ConsoleHost') {
+			Import-Module PSReadLine
+		}
 	}
 }
 
