@@ -20,32 +20,36 @@ Function Get-MyModule
 		$true
 	}
 }
-#Source: https://github.com/psget/psget
-if(-not(Get-MyModule "PsGet")) {
-	(new-object Net.WebClient).DownloadString("http://psget.net/GetPsGet.ps1") | iex
-} else {
-	#source: https://github.com/dahlbyk/posh-git
-	if(-not(Get-MyModule "posh-git")) {
-		Install-Module posh-git
-	} else {
-		# Load posh-git example profile
-		. "$Env:USERPROFILE\Documents\WindowsPowerShell\Modules\posh-git\profile.example.ps1"
-	}
 
-	#Source: https://github.com/lzybkr/PSReadLine
-	if(-not(Get-MyModule "PSReadline")) {
-		Install-Module PSReadline
-	} else {
-		if ($host.Name -eq 'ConsoleHost') {
-			Import-Module PSReadLine
-		}
-	}
-}
-
-#Powershell Aliases
+# Powershell Aliases
 if(Test-Path "$Home\Documents\WindowsPowerShell\aliases.ps1") {
 	. "$Home\Documents\WindowsPowerShell\aliases.ps1"
 }
 
-#Oh-My-Powershell
+## Powershell Modules
+
+# Source: https://github.com/pecigonzalo/Oh-My-Powershell
+#Disable warning temporarily
+$WarningPreference="silentlycontinue"
+if(-not(Get-MyModule "oh-my-powershell")) {
+	#Enable warning
+	$WarningPreference="continue"
+	(new-object Net.WebClient).DownloadString("https://raw.githubusercontent.com/pecigonzalo/Oh-My-Powershell/master/install.ps1") | iex | Wait-Job
+}
+#Enable warning
+$WarningPreference="continue"
+
+# Source: https://github.com/psget/psget
+if(-not(Get-MyModule "PsGet")) {
+	(new-object Net.WebClient).DownloadString("http://psget.net/GetPsGet.ps1") | iex | Wait-Job
+}
+
+if(-not(Get-MyModule "posh-git")) {
+	Install-Module posh-git | Wait-Job
+}
+
+# Load posh-git example profile
+. "$Env:USERPROFILE\Documents\WindowsPowerShell\Modules\posh-git\profile.example.ps1"
+
+# Load Oh-My-Powershell
 Import-Module "Oh-My-Powershell" -DisableNameChecking -NoClobber
