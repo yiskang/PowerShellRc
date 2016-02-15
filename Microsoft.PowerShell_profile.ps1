@@ -28,17 +28,6 @@ if(Test-Path "$Home\Documents\WindowsPowerShell\aliases.ps1") {
 
 ## Powershell Modules
 
-# Source: https://github.com/pecigonzalo/Oh-My-Powershell
-#Disable warning temporarily
-$WarningPreference="silentlycontinue"
-if(-not(Get-MyModule "oh-my-powershell")) {
-	#Enable warning
-	$WarningPreference="continue"
-	(new-object Net.WebClient).DownloadString("https://raw.githubusercontent.com/pecigonzalo/Oh-My-Powershell/master/install.ps1") | iex | Wait-Job
-}
-#Enable warning
-$WarningPreference="continue"
-
 # Source: https://github.com/psget/psget
 if(-not(Get-MyModule "PsGet")) {
 	(new-object Net.WebClient).DownloadString("http://psget.net/GetPsGet.ps1") | iex | Wait-Job
@@ -52,4 +41,10 @@ if(-not(Get-MyModule "posh-git")) {
 . "$Env:USERPROFILE\Documents\WindowsPowerShell\Modules\posh-git\profile.example.ps1"
 
 # Load Oh-My-Powershell
-Import-Module "Oh-My-Powershell" -DisableNameChecking -NoClobber
+try {
+	Import-Module "Oh-My-Powershell" -DisableNameChecking -NoClobber
+} catch [system.exception] {
+	# Source: https://github.com/pecigonzalo/Oh-My-Powershell
+	(new-object Net.WebClient).DownloadString("https://raw.githubusercontent.com/pecigonzalo/Oh-My-Powershell/master/install.ps1") | iex | Wait-Job
+	Import-Module "Oh-My-Powershell" -DisableNameChecking -NoClobber
+}
