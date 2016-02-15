@@ -46,3 +46,6 @@ if(-not(Get-MyModule "PsGet")) {
 if(Test-Path "$Home\Documents\WindowsPowerShell\aliases.ps1") {
 	. "$Home\Documents\WindowsPowerShell\aliases.ps1"
 }
+
+#Oh-My-Powershell
+Import-Module "Oh-My-Powershell" -DisableNameChecking -NoClobber
