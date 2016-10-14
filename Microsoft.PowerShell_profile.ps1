@@ -41,10 +41,10 @@ if(-not(Get-MyModule "posh-git")) {
 . "$Env:USERPROFILE\Documents\WindowsPowerShell\Modules\posh-git\profile.example.ps1"
 
 # Load Oh-My-Powershell
-$ohMyPowershellMod = Get-Module -List "Oh-My-Powershell"
+$ohMyPowershellMod = Get-Module -List "oh-my-posh"
 if(!$ohMyPowershellMod) {
-    # Source: https://github.com/pecigonzalo/Oh-My-Powershell
-    (new-object Net.WebClient).DownloadString("https://raw.githubusercontent.com/pecigonzalo/Oh-My-Powershell/master/install.ps1") | iex
+    # Source: https://github.com/pecigonzalo/Oh-My-Posh
+    (new-object Net.WebClient).DownloadString("https://raw.githubusercontent.com/pecigonzalo/Oh-My-Posh/master/install.ps1") | iex
 }
 
-Import-Module "Oh-My-Powershell" -DisableNameChecking -NoClobber
+Import-Module "oh-my-posh" -DisableNameChecking -NoClobber
