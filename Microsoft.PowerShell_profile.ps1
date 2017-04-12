@@ -38,7 +38,7 @@ if(-not(Get-MyModule "posh-git")) {
 }
 
 # Load posh-git example profile
-. "$Env:USERPROFILE\Documents\WindowsPowerShell\Modules\posh-git\profile.example.ps1"
+#. "$Env:USERPROFILE\Documents\WindowsPowerShell\Modules\posh-git\profile.example.ps1"
 
 # Load Oh-My-Powershell
 $ohMyPowershellMod = Get-Module -List "oh-my-posh"
@@ -48,3 +48,6 @@ if(!$ohMyPowershellMod) {
 }
 
 Import-Module "oh-my-posh" -DisableNameChecking -NoClobber
+
+# Add to Path
+$env:Path += ";$env:USERPROFILE\AppData\Roaming\npm"
